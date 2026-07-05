@@ -1,183 +1,679 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kosmogrids</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #333;
-        }
-        
-        .container {
-            text-align: center;
-            background: white;
-            padding: 60px 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            animation: fadeIn 0.8s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .subtitle {
-            font-size: 1.3em;
-            color: #666;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-        
-        .description {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 40px;
-        }
-        
-        .links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        a {
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            border: 2px solid #667eea;
-        }
-        
-        .btn-secondary:hover {
-            background: #667eea;
-            color: white;
-        }
-        
-        .features {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 2px solid #eee;
-        }
-        
-        .features h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-        
-        .feature-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            text-align: left;
-            margin-top: 20px;
-        }
-        
-        .feature-item {
-            padding: 15px;
-            background: #f8f9ff;
-            border-radius: 5px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .feature-item strong {
-            color: #667eea;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 40px 20px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .feature-list {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kosmogrids — Electronic Music</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+display: ['Manrope', 'sans-serif'],
+},
+},
+},
+};
+</script>
+<style>
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #404040; }
+::selection { background: #fff; color: #000; }
+body { background: #050505; color: #e5e5e5; }
+
+.grain {
+position: fixed; inset: 0; z-index: 50; opacity: 0.04;
+pointer-events: none;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+@keyframes marquee {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 40s linear infinite; }
+
+@keyframes ping {
+75%, 100% { transform: scale(2); opacity: 0; }
+}
+.animate-ping-custom { animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes pulse-glow {
+0%, 100% { opacity: 0.15; }
+50% { opacity: 0.3; }
+}
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+.bandcamp-embed {
+border: 0; width: 100%; height: 470px;
+border-radius: 8px;
+}
+.bandcamp-embed-track {
+border: 0; width: 100%; height: 120px;
+border-radius: 8px;
+}
+
+.track-card {
+transition: all 500ms ease-out;
+}
+.track-card:hover {
+background: rgb(23 23 23 / 0.8);
+}
+.track-card:hover .track-title {
+transform: translateX(8px);
+}
+.track-card .track-title {
+transition: transform 500ms ease-out;
+}
+
+.album-card {
+transition: all 500ms ease-out;
+}
+.album-card:hover {
+background: rgb(23 23 23 / 0.8);
+transform: translateY(-4px);
+}
+.album-card:hover .album-art {
+filter: grayscale(0);
+opacity: 1;
+}
+.album-card .album-art {
+filter: grayscale(100%);
+opacity: 0.7;
+transition: all 700ms ease-out;
+}
+
+.nav-link {
+transition: color 300ms ease-out;
+}
+.nav-link:hover {
+color: #a3a3a3;
+}
+
+.btn-primary {
+transition: background 300ms ease-out;
+}
+.btn-primary:hover {
+background: #d4d4d4;
+}
+
+.decorative-line {
+background: linear-gradient(to bottom, transparent, rgb(38 38 38), transparent);
+}
+
+.glow-orb {
+background: #4ade80;
+filter: blur(120px);
+}
+
+.waveform-bar {
+animation: waveform 1.2s ease-in-out infinite;
+}
+@keyframes waveform {
+0%, 100% { height: 8px; }
+50% { height: var(--max-h, 24px); }
+}
+</style>
 </head>
-<body>
-    <div class="container">
-        <h1>Kosmogrids</h1>
-        <p class="subtitle">Explore Cosmic Grid Structures</p>
-        
-        <p class="description">
-            Welcome to Kosmogrids, where we visualize and explore the fascinating patterns of cosmic grids and their applications in modern computing and design.
-        </p>
-        
-        <div class="links">
-            <a href="https://github.com/gait2026/kosmogrids" class="btn-primary">View on GitHub</a>
-            <a href="#features" class="btn-secondary">Learn More</a>
-        </div>
-        
-        <div class="features" id="features">
-            <h3>Features</h3>
-            <div class="feature-list">
-                <div class="feature-item">
-                    <strong>📊</strong> Advanced Visualization
-                </div>
-                <div class="feature-item">
-                    <strong>⚡</strong> High Performance
-                </div>
-                <div class="feature-item">
-                    <strong>🔧</strong> Customizable
-                </div>
-                <div class="feature-item">
-                    <strong>📱</strong> Responsive Design
-                </div>
-            </div>
-        </div>
-    </div>
+<body class="font-sans antialiased overflow-x-hidden">
+
+<!-- Grain Overlay -->
+<div class="grain"></div>
+
+<!-- Decorative Background Orbs -->
+<div class="fixed top-[-200px] right-[-200px] w-[600px] h-[600px] glow-orb rounded-full opacity-10 animate-pulse-glow pointer-events-none z-0"></div>
+<div class="fixed bottom-[-300px] left-[-200px] w-[800px] h-[800px] glow-orb rounded-full opacity-[0.05] animate-pulse-glow pointer-events-none z-0" style="animation-delay: 2s;"></div>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-40 mix-blend-difference">
+<div class="max-w-screen-2xl mx-auto px-6 py-6 flex items-center justify-between">
+<a href="#" class="font-display font-500 text-white text-lg tracking-tight flex items-center gap-2">
+<span class="inline-block w-2 h-2 bg-green-400 rounded-full relative">
+<span class="absolute inset-0 bg-green-400 rounded-full animate-ping-custom"></span>
+</span>
+Kosmogrids
+</a>
+<div class="hidden md:flex items-center gap-8">
+<a href="#music" class="nav-link text-sm text-white font-medium uppercase tracking-widest">Music</a>
+<a href="#albums" class="nav-link text-sm text-white font-medium uppercase tracking-widest">Albums</a>
+<a href="#about" class="nav-link text-sm text-white font-medium uppercase tracking-widest">About</a>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="nav-link text-sm text-white font-medium uppercase tracking-widest flex items-center gap-1">
+Bandcamp
+<span class="iconify" data-icon="lucide:external-link" data-width="12"></span>
+</a>
+</div>
+<!-- Mobile Menu Button -->
+<button id="mobile-menu-btn" class="md:hidden text-white">
+<span class="iconify" data-icon="lucide:menu" data-width="24"></span>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden px-6 pb-6">
+<div class="flex flex-col gap-4 bg-neutral-900/90 backdrop-blur-md rounded-xl p-6">
+<a href="#music" class="text-sm text-white font-medium uppercase tracking-widest mobile-link">Music</a>
+<a href="#albums" class="text-sm text-white font-medium uppercase tracking-widest mobile-link">Albums</a>
+<a href="#about" class="text-sm text-white font-medium uppercase tracking-widest mobile-link">About</a>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="text-sm text-white font-medium uppercase tracking-widest">Bandcamp ↗</a>
+</div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col justify-center pt-32 pb-12 relative z-10">
+<div class="max-w-screen-2xl mx-auto px-6 w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7">
+<div class="flex items-center gap-3 mb-8">
+<span class="inline-block w-8 h-px bg-green-400"></span>
+<span class="text-xs font-semibold tracking-widest uppercase text-green-400">Electronic / Ambient / Synthwave</span>
+</div>
+<h1 class="font-display font-500 text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tighter mb-8">
+Sound<br/>
+<span class="text-neutral-500">from</span><br/>
+Machines
+</h1>
+<p class="text-lg font-light leading-relaxed text-neutral-400 max-w-xl mb-10">
+Exploring the boundaries between analog warmth and digital precision in a experimental scenery.
+Electronic compositions crafted from software synthesizers and drum machines and multiple DAWs.
+</p>
+<div class="flex flex-wrap items-center gap-4">
+<a href="#music" class="btn-primary inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:play" data-width="14"></span>
+Listen Now
+</a>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-neutral-700 text-neutral-300 px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:border-neutral-500 transition-colors duration-300">
+Visit Bandcamp
+<span class="iconify" data-icon="lucide:arrow-up-right" data-width="14"></span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-5 flex justify-center lg:justify-end">
+<div class="relative animate-float">
+<!-- Stylized artwork placeholder -->
+<div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden relative">
+<img src="https://picsum.photos/id/38/640/640.jpg" alt="SynthSound" class="w-full h-full object-cover grayscale opacity-20" />
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<div class="flex items-end gap-1 h-8">
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 32px; animation-delay: 0s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 24px; animation-delay: 0.15s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 28px; animation-delay: 0.3s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 20px; animation-delay: 0.45s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 30px; animation-delay: 0.6s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 18px; animation-delay: 0.75s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 26px; animation-delay: 0.9s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 22px; animation-delay: 1.05s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 28px; animation-delay: 0.2s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 16px; animation-delay: 0.5s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 24px; animation-delay: 0.7s;"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 20px; animation-delay: 0.35s;"></div>
+</div>
+</div>
+</div>
+<!-- Decorative ring -->
+<div class="absolute -inset-4 border border-neutral-800 rounded-2xl pointer-events-none"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Marquee -->
+<div class="relative z-10 border-y border-neutral-800 py-4 overflow-hidden backdrop-blur-sm">
+<div class="animate-marquee whitespace-nowrap flex items-center gap-8">
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Synthesizer
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ambient
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Drum Machine
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ableton
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Bitwig
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> VST synths and FXs
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Analog
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Digital
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Experimental
+</span>
+<!-- Duplicate for seamless loop -->
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Synthesizer
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ambient
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Drum Machine
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ableton
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Bitwig
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> VST synths and FXs
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Analog
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Digital
+</span>
+<span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Experimental
+</span>
+</div>
+</div>
+
+<!-- Featured Music / Embedded Player Section -->
+<section id="music" class="py-24 md:py-32 relative z-10">
+<div class="max-w-screen-2xl mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Left: Info -->
+<div class="lg:col-span-4">
+<div class="sticky top-32">
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500 block mb-4">Featured Release</span>
+<h2 class="font-display font-500 text-4xl md:text-5xl tracking-tight leading-tight mb-6">
+Latest<br/>Tracks
+</h2>
+<p class="text-lg font-light leading-relaxed text-neutral-400 mb-8">
+Stream the latest releases directly here. Each track is a journey through layered textures,
+evolving pads, and meticulous sound design.
+</p>
+<div class="flex items-center gap-3 text-neutral-500 text-sm">
+<span class="iconify" data-icon="lucide:headphones" data-width="16"></span>
+<span>Best experienced with headphones</span>
+</div>
+</div>
+</div>
+<!-- Right: Embedded Player -->
+<div class="lg:col-span-8">
+<div class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-8 mb-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping-custom absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+</span>
+<span class="text-xs font-semibold tracking-widest uppercase text-green-400">Now Playing</span>
+</div>
+<!--
+Bandcamp Embedded Player
+Replace ALBUM_ID with the actual album ID from the Bandcamp embed code.
+To get it: Go to the album on Bandcamp → Share → Embed → copy the album=XXXXX value
+-->
+<iframe
+class="bandcamp-embed"
+src="https://bandcamp.com/EmbeddedPlayer/album=2362694069/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
+seamless
+loading="lazy"
+title="Kosmogrids Bandcamp Player"
+></iframe>
+<div id="embed-fallback" class="hidden bg-neutral-800/50 rounded-xl p-8 text-center">
+<span class="iconify text-neutral-600 mb-4 mx-auto" data-icon="lucide:music" data-width="48"></span>
+<p class="text-neutral-400 text-sm mb-4">Bandcamp player loading…</p>
+<p class="text-neutral-600 text-xs mb-6">If the player doesn't load, visit the Bandcamp page directly.</p>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-300">
+Open on Bandcamp
+<span class="iconify" data-icon="lucide:external-link" data-width="12"></span>
+</a>
+</div>
+</div>
+
+<!-- Additional Track Cards -->
+<div class="space-y-0">
+<div class="track-card flex items-center justify-between py-6 px-4 border-b border-neutral-800 rounded-lg cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-4', '_blank')">
+<div class="flex items-center gap-4">
+<span class="text-neutral-600 text-sm font-mono w-6">01</span>
+<div>
+<p class="track-title text-neutral-200 font-medium">Latest Release</p>
+<p class="text-neutral-500 text-sm">Kosmogrids 4 · 2026</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-neutral-600 text-xs font-mono hidden sm:block">Bandcamp</span>
+<span class="iconify text-neutral-600" data-icon="lucide:arrow-up-right" data-width="16"></span>
+</div>
+</div>
+<div class="track-card flex items-center justify-between py-6 px-4 border-b border-neutral-800 rounded-lg cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/music', '_blank')">
+<div class="flex items-center gap-4">
+<span class="text-neutral-600 text-sm font-mono w-6">02</span>
+<div>
+<p class="track-title text-neutral-200 font-medium">More Releases</p>
+<p class="text-neutral-500 text-sm">Discography · All Albums</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-neutral-600 text-xs font-mono hidden sm:block">Bandcamp</span>
+<span class="iconify text-neutral-600" data-icon="lucide:arrow-up-right" data-width="16"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Decorative Line -->
+<div class="decorative-line w-px h-24 mx-auto"></div>
+
+<!-- Albums Grid Section -->
+<section id="albums" class="py-24 md:py-32 relative z-10">
+<div class="max-w-screen-2xl mx-auto px-6">
+<div class="text-center mb-16">
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500 block mb-4">Discography</span>
+<h2 class="font-display font-500 text-4xl md:text-5xl tracking-tight leading-tight">
+Selected Works
+</h2>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Album Card 1 -->
+<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-i', '_blank')">
+<div class="aspect-square overflow-hidden">
+<img src="https://f4.bcbits.com/img/a2753941104_10.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+</div>
+<div class="p-6">
+<h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids I</h3>
+<p class="text-neutral-500 text-sm mb-3">2023 · 15 Tracks</p>
+<div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+Listen on Bandcamp
+</div>
+</div>
+</div>
+
+<!-- Album Card 2 -->
+<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-ii', '_blank')">
+<div class="aspect-square overflow-hidden">
+<img src="https://f4.bcbits.com/img/a1709755885_10.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+</div>
+<div class="p-6">
+<h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids II</h3>
+<p class="text-neutral-500 text-sm mb-3">2023 · 8 Tracks</p>
+<div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+Listen on Bandcamp
+</div>
+</div>
+</div>
+
+<!-- Album Card 3 -->
+<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-phenomena', '_blank')">
+<div class="aspect-square overflow-hidden">
+<img src="https://f4.bcbits.com/img/a0596212077_10.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+</div>
+<div class="p-6">
+<h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids Phenomena</h3>
+<p class="text-neutral-500 text-sm mb-3">2024 · 10 Tracks</p>
+<div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+Listen on Bandcamp
+</div>
+</div>
+</div>
+
+<!-- Album Card 4 -->
+<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-4', '_blank')">
+<div class="aspect-square overflow-hidden">
+<img src="https://f4.bcbits.com/img/a0479596647_2.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+</div>
+<div class="p-6">
+<h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids 4</h3>
+<p class="text-neutral-500 text-sm mb-3">2026 · 8 Tracks</p>
+<div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+Listen on Bandcamp
+</div>
+</div>
+</div>
+</div>
+
+<!-- Second Embedded Player for additional album -->
+<div class="mt-16 bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="iconify text-neutral-500" data-icon="lucide:disc-3" data-width="20"></span>
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500">Full Discography Player</span>
+</div>
+<br />
+<iframe
+class="bandcamp-embed"
+src="https://bandcamp.com/EmbeddedPlayer/album=41786448/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
+seamless
+loading="lazy"
+title="Kosmogrids Full Discography"
+></iframe>
+<br />
+<iframe
+class="bandcamp-embed"
+src="https://bandcamp.com/EmbeddedPlayer/album=1830145958/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
+seamless
+loading="lazy"
+title="Kosmogrids Full Discography"
+></iframe>
+<br />
+<iframe
+class="bandcamp-embed"
+src="https://bandcamp.com/EmbeddedPlayer/album=3720652680/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
+seamless
+loading="lazy"
+title="Kosmogrids Full Discography"
+></iframe>
+<br />
+<iframe
+class="bandcamp-embed"
+src="https://bandcamp.com/EmbeddedPlayer/album=2362694069/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
+seamless
+loading="lazy"
+title="Kosmogrids Full Discography"
+></iframe>
+<br />
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-24 md:py-32 relative z-10">
+<div class="max-w-screen-2xl mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+<div class="lg:col-span-5">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden relative">
+<img src="https://picsum.photos/seed/synth-studio/600/750.jpg" alt="Studio" class="w-full h-full" />
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+</div>
+<div class="lg:col-span-7">
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500 block mb-4">About</span>
+<h2 class="font-display font-500 text-4xl md:text-5xl tracking-tight leading-tight mb-8">
+The Process<br/>
+<span class="text-neutral-500">Behind the Sound of Kosmogrids</span>
+</h2>
+<div class="space-y-6 text-lg font-light leading-relaxed text-neutral-400">
+<p>
+Kosmogrids is an electronic music project rooted in the exploration of sound synthesis.
+Every composition begins at the oscillator level — shaping waveforms, sculpting filters,
+and modulating parameters to create evolving sonic landscapes.
+</p>
+<p>
+The studio is built around a hybrid setup: virtual analog and digital synthesizers paired with
+modern digital processing and oldschool keyboards.
+</p>
+<p>
+All music is available on Bandcamp in multiple formats, including lossless downloads.
+</p>
+</div>
+
+<!-- Gear/Process List -->
+<div class="grid grid-cols-2 gap-6 mt-12">
+<div class="border-l border-neutral-800 pl-4">
+<h4 class="text-sm font-medium text-neutral-200 mb-2">Instruments</h4>
+<p class="text-sm text-neutral-500">Modular synth, analog polysynths, drum machines, keyboards, phones, tape loops</p>
+</div>
+<div class="border-l border-neutral-800 pl-4">
+<h4 class="text-sm font-medium text-neutral-200 mb-2">Processing</h4>
+<p class="text-sm text-neutral-500">Reverbs, delays, granular synthesis, spectral processing</p>
+</div>
+<div class="border-l border-neutral-800 pl-4">
+<h4 class="text-sm font-medium text-neutral-200 mb-2">Streaming</h4>
+<p class="text-sm text-neutral-500">Bandcamp, Spotify, Soundcloud</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 md:py-32 relative z-10">
+<div class="max-w-screen-2xl mx-auto px-6 text-center">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-display font-500 text-6xl md:text-8xl tracking-tighter leading-none mb-8">
+Listen.
+</h2>
+<p class="text-lg font-light leading-relaxed text-neutral-400 mb-12 max-w-xl mx-auto">
+Support independent electronic music. Every purchase on Bandcamp goes directly to the artist.
+</p>
+<div class="flex flex-wrap items-center justify-center gap-4">
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="btn-primary inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full text-sm font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:shopping-bag" data-width="16"></span>
+Shop on Bandcamp
+</a>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-3 border border-neutral-700 text-neutral-300 px-10 py-5 rounded-full text-sm font-medium uppercase tracking-widest hover:border-neutral-500 transition-colors duration-300">
+Stream Free
+<span class="iconify" data-icon="lucide:arrow-up-right" data-width="16"></span>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-neutral-800 py-16 relative z-10">
+<div class="max-w-screen-2xl mx-auto px-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+<!-- Brand -->
+<div class="lg:col-span-2">
+<a href="#" class="font-display font-500 text-white text-xl tracking-tight flex items-center gap-2 mb-4">
+<span class="inline-block w-2 h-2 bg-green-400 rounded-full"></span>
+Kosmogrids
+</a>
+<p class="text-neutral-500 text-sm leading-relaxed max-w-sm">
+Electronic music from the intersection of analog warmth and digital precision.
+All releases available on Bandcamp.
+</p>
+</div>
+<!-- Links -->
+<div>
+<h4 class="text-xs font-semibold tracking-widest uppercase text-neutral-500 mb-4">Listen</h4>
+<ul class="space-y-3">
+<li><a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">Bandcamp</a></li>
+<li><a href="https://open.spotify.com/album/2nL5bK8jQdTpCeQh8W83ua" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">Spotify</a></li>
+<li><a href="https://soundcloud.com/kosmogrids" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">SoundCloud</a></li>
+</ul>
+</div>
+<!-- Social -->
+<div>
+<h4 class="text-xs font-semibold tracking-widest uppercase text-neutral-500 mb-4">Connect</h4>
+<ul class="space-y-3">
+<li><a href="mailto:kosmogrids@gmail.com" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300 flex items-center gap-2"><span class="iconify" data-icon="lucide:mail" data-width="14"></span> Email</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom bar -->
+<div class="mt-16 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="text-neutral-600 text-xs">&copy; 2026 Kosmogrids. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script>
+// Mobile menu toggle
+const menuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+menuOpen = !menuOpen;
+mobileMenu.classList.toggle('hidden', !menuOpen);
+menuBtn.innerHTML = menuOpen
+? '<span class="iconify" data-icon="lucide:x" data-width="24"></span>'
+: '<span class="iconify" data-icon="lucide:menu" data-width="24"></span>';
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-link').forEach(link => {
+link.addEventListener('click', () => {
+menuOpen = false;
+mobileMenu.classList.add('hidden');
+menuBtn.innerHTML = '<span class="iconify" data-icon="lucide:menu" data-width="24"></span>';
+});
+});
+
+// Embed fallback detection
+document.querySelectorAll('iframe.bandcamp-embed').forEach(iframe => {
+iframe.addEventListener('error', () => {
+const fallback = iframe.parentElement.querySelector('#embed-fallback');
+if (fallback) fallback.classList.remove('hidden');
+iframe.style.display = 'none';
+});
+// Also show fallback if iframe is empty after load (cross-origin limitation workaround)
+iframe.addEventListener('load', () => {
+try {
+// If we can access contentDocument, check if it's empty
+const doc = iframe.contentDocument || iframe.contentWindow.document;
+if (!doc.body || doc.body.innerHTML.trim() === '') {
+const fallback = iframe.closest('.bg-neutral-900\\/50')?.querySelector('#embed-fallback');
+if (fallback) fallback.classList.remove('hidden');
+iframe.style.display = 'none';
+}
+} catch (e) {
+// Cross-origin — can't check, assume it's loading fine
+}
+});
+
+// Timeout fallback: if the embed doesn't show anything meaningful after 8 seconds
+setTimeout(() => {
+// Check if the iframe src has album=0 (placeholder) and show a helpful message
+if (iframe.src.includes('album=0')) {
+const parent = iframe.closest('.bg-neutral-900\\/50') || iframe.parentElement;
+// Don't hide the iframe, but inject a notice above it
+const notice = document.createElement('div');
+notice.className = 'bg-amber-900/20 border border-amber-800/30 rounded-xl p-4 mb-4 flex items-start gap-3';
+notice.innerHTML = `
+<span class="iconify text-amber-500 mt-0.5 shrink-0" data-icon="lucide:info" data-width="16"></span>
+<div>
+<p class="text-amber-200 text-sm font-medium mb-1">Album ID needed</p>
+<p class="text-amber-200/60 text-xs leading-relaxed">To display the actual Bandcamp player, replace <code class="bg-neutral-800 px-1.5 py-0.5 rounded text-amber-300/80">album=0</code> in the iframe src with the real album ID. Get it from your Bandcamp album page: Share → Embed → copy the album number.</p>
+</div>
+`;
+iframe.parentElement.insertBefore(notice, iframe);
+}
+}, 2000);
+});
+</script>
 </body>
 </html>
