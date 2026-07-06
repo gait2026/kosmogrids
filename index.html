@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Kosmogrids — Electronic Music</title>
+<meta name="description" content="Kosmogrids — Electronic music exploring analog warmth and digital precision. Ambient, synthwave, and experimental compositions. Stream and download on Bandcamp." />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -27,10 +28,32 @@ display: ['Manrope', 'sans-serif'],
 ::selection { background: #fff; color: #000; }
 body { background: #050505; color: #e5e5e5; }
 
+/* Skip to main content link */
+.skip-link {
+position: absolute;
+top: -40px;
+left: 0;
+background: #fff;
+color: #000;
+padding: 8px;
+text-decoration: none;
+z-index: 100;
+font-weight: 600;
+}
+.skip-link:focus {
+top: 0;
+}
+
+/* Focus visible styles for better keyboard navigation */
+:focus-visible {
+outline: 2px solid #4ade80;
+outline-offset: 2px;
+}
+
 .grain {
 position: fixed; inset: 0; z-index: 50; opacity: 0.04;
 pointer-events: none;
-background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='white' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
 @keyframes marquee {
@@ -71,6 +94,11 @@ transition: all 500ms ease-out;
 .track-card:hover {
 background: rgb(23 23 23 / 0.8);
 }
+.track-card:focus-visible {
+background: rgb(23 23 23 / 0.8);
+outline: 2px solid #4ade80;
+outline-offset: -2px;
+}
 .track-card:hover .track-title {
 transform: translateX(8px);
 }
@@ -84,6 +112,10 @@ transition: all 500ms ease-out;
 .album-card:hover {
 background: rgb(23 23 23 / 0.8);
 transform: translateY(-4px);
+}
+.album-card:focus-visible {
+outline: 2px solid #4ade80;
+outline-offset: -2px;
 }
 .album-card:hover .album-art {
 filter: grayscale(0);
@@ -125,23 +157,35 @@ animation: waveform 1.2s ease-in-out infinite;
 0%, 100% { height: 8px; }
 50% { height: var(--max-h, 24px); }
 }
+
+/* Improved contrast for secondary text */
+.text-neutral-600 {
+color: #a3a3a3;
+}
+
+.text-neutral-500 {
+color: #a3a3a3;
+}
 </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
 
+<!-- Skip to main content link -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- Grain Overlay -->
-<div class="grain"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <!-- Decorative Background Orbs -->
-<div class="fixed top-[-200px] right-[-200px] w-[600px] h-[600px] glow-orb rounded-full opacity-10 animate-pulse-glow pointer-events-none z-0"></div>
-<div class="fixed bottom-[-300px] left-[-200px] w-[800px] h-[800px] glow-orb rounded-full opacity-[0.05] animate-pulse-glow pointer-events-none z-0" style="animation-delay: 2s;"></div>
+<div class="fixed top-[-200px] right-[-200px] w-[600px] h-[600px] glow-orb rounded-full opacity-10 animate-pulse-glow pointer-events-none z-0" aria-hidden="true"></div>
+<div class="fixed bottom-[-300px] left-[-200px] w-[800px] h-[800px] glow-orb rounded-full opacity-[0.05] animate-pulse-glow pointer-events-none z-0" style="animation-delay: 2s;" aria-hidden="true"></div>
 
 <!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-40 mix-blend-difference">
+<nav class="fixed top-0 left-0 right-0 z-40 mix-blend-difference" aria-label="Main navigation">
 <div class="max-w-screen-2xl mx-auto px-6 py-6 flex items-center justify-between">
 <a href="#" class="font-display font-500 text-white text-lg tracking-tight flex items-center gap-2">
 <span class="inline-block w-2 h-2 bg-green-400 rounded-full relative">
-<span class="absolute inset-0 bg-green-400 rounded-full animate-ping-custom"></span>
+<span class="absolute inset-0 bg-green-400 rounded-full animate-ping-custom" aria-hidden="true"></span>
 </span>
 Kosmogrids
 </a>
@@ -149,53 +193,56 @@ Kosmogrids
 <a href="#music" class="nav-link text-sm text-white font-medium uppercase tracking-widest">Music</a>
 <a href="#albums" class="nav-link text-sm text-white font-medium uppercase tracking-widest">Albums</a>
 <a href="#about" class="nav-link text-sm text-white font-medium uppercase tracking-widest">About</a>
-<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="nav-link text-sm text-white font-medium uppercase tracking-widest flex items-center gap-1">
-Bandcamp
-<span class="iconify" data-icon="lucide:external-link" data-width="12"></span>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="nav-link text-sm text-white font-medium uppercase tracking-widest flex items-center gap-1">
+Bandcamp <span class="sr-only">(opens in new window)</span>
+<span class="iconify" data-icon="lucide:external-link" data-width="12" aria-hidden="true"></span>
 </a>
 </div>
 <!-- Mobile Menu Button -->
-<button id="mobile-menu-btn" class="md:hidden text-white">
-<span class="iconify" data-icon="lucide:menu" data-width="24"></span>
+<button id="mobile-menu-btn" class="md:hidden text-white" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+<span class="iconify" data-icon="lucide:menu" data-width="24" aria-hidden="true"></span>
 </button>
 </div>
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="hidden md:hidden px-6 pb-6">
+<div id="mobile-menu" class="hidden md:hidden px-6 pb-6" role="navigation" aria-label="Mobile navigation">
 <div class="flex flex-col gap-4 bg-neutral-900/90 backdrop-blur-md rounded-xl p-6">
 <a href="#music" class="text-sm text-white font-medium uppercase tracking-widest mobile-link">Music</a>
 <a href="#albums" class="text-sm text-white font-medium uppercase tracking-widest mobile-link">Albums</a>
 <a href="#about" class="text-sm text-white font-medium uppercase tracking-widest mobile-link">About</a>
-<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="text-sm text-white font-medium uppercase tracking-widest">Bandcamp ↗</a>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="text-sm text-white font-medium uppercase tracking-widest">Bandcamp <span class="sr-only">(opens in new window)</span></a>
 </div>
 </div>
 </nav>
 
+<!-- Main content -->
+<main id="main-content">
+
 <!-- Hero Section -->
-<section class="min-h-screen flex flex-col justify-center pt-32 pb-12 relative z-10">
+<section class="min-h-screen flex flex-col justify-center pt-32 pb-12 relative z-10" role="region" aria-label="Hero section">
 <div class="max-w-screen-2xl mx-auto px-6 w-full">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 <div class="lg:col-span-7">
 <div class="flex items-center gap-3 mb-8">
-<span class="inline-block w-8 h-px bg-green-400"></span>
+<span class="inline-block w-8 h-px bg-green-400" aria-hidden="true"></span>
 <span class="text-xs font-semibold tracking-widest uppercase text-green-400">Electronic / Ambient / Synthwave</span>
 </div>
 <h1 class="font-display font-500 text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tighter mb-8">
 Sound<br/>
-<span class="text-neutral-500">from</span><br/>
+<span class="text-neutral-400">from</span><br/>
 Machines
 </h1>
-<p class="text-lg font-light leading-relaxed text-neutral-400 max-w-xl mb-10">
+<p class="text-lg font-light leading-relaxed text-neutral-300 max-w-xl mb-10">
 Exploring the boundaries between analog warmth and digital precision in a experimental scenery.
 Electronic compositions crafted from software synthesizers and drum machines and multiple DAWs.
 </p>
 <div class="flex flex-wrap items-center gap-4">
 <a href="#music" class="btn-primary inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest">
-<span class="iconify" data-icon="lucide:play" data-width="14"></span>
+<span class="iconify" data-icon="lucide:play" data-width="14" aria-hidden="true"></span>
 Listen Now
 </a>
-<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-neutral-700 text-neutral-300 px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:border-neutral-500 transition-colors duration-300">
-Visit Bandcamp
-<span class="iconify" data-icon="lucide:arrow-up-right" data-width="14"></span>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-neutral-700 text-neutral-300 px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest">
+Visit Bandcamp <span class="sr-only">(opens in new window)</span>
+<span class="iconify" data-icon="lucide:arrow-up-right" data-width="14" aria-hidden="true"></span>
 </a>
 </div>
 </div>
@@ -203,27 +250,27 @@ Visit Bandcamp
 <div class="relative animate-float">
 <!-- Stylized artwork placeholder -->
 <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden relative">
-<img src="https://picsum.photos/id/38/640/640.jpg" alt="SynthSound" class="w-full h-full object-cover grayscale opacity-20" />
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<img src="https://picsum.photos/id/38/640/640.jpg" alt="Kosmogrids synthesizer artwork" class="w-full h-full object-cover grayscale opacity-20" loading="lazy" />
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" aria-hidden="true"></div>
 <div class="absolute bottom-4 left-4 right-4">
-<div class="flex items-end gap-1 h-8">
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 32px; animation-delay: 0s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 24px; animation-delay: 0.15s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 28px; animation-delay: 0.3s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 20px; animation-delay: 0.45s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 30px; animation-delay: 0.6s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 18px; animation-delay: 0.75s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 26px; animation-delay: 0.9s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 22px; animation-delay: 1.05s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 28px; animation-delay: 0.2s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 16px; animation-delay: 0.5s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 24px; animation-delay: 0.7s;"></div>
-<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 20px; animation-delay: 0.35s;"></div>
+<div class="flex items-end gap-1 h-8" aria-label="Sound waveform visualization">
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 32px; animation-delay: 0s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 24px; animation-delay: 0.15s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 28px; animation-delay: 0.3s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 20px; animation-delay: 0.45s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 30px; animation-delay: 0.6s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 18px; animation-delay: 0.75s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 26px; animation-delay: 0.9s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 22px; animation-delay: 1.05s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 28px; animation-delay: 0.2s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 16px; animation-delay: 0.5s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 24px; animation-delay: 0.7s;" aria-hidden="true"></div>
+<div class="w-1 bg-green-400 rounded-full waveform-bar" style="--max-h: 20px; animation-delay: 0.35s;" aria-hidden="true"></div>
 </div>
 </div>
 </div>
 <!-- Decorative ring -->
-<div class="absolute -inset-4 border border-neutral-800 rounded-2xl pointer-events-none"></div>
+<div class="absolute -inset-4 border border-neutral-800 rounded-2xl pointer-events-none" aria-hidden="true"></div>
 </div>
 </div>
 </div>
@@ -231,83 +278,83 @@ Visit Bandcamp
 </section>
 
 <!-- Marquee -->
-<div class="relative z-10 border-y border-neutral-800 py-4 overflow-hidden backdrop-blur-sm">
+<div class="relative z-10 border-y border-neutral-800 py-4 overflow-hidden backdrop-blur-sm" role="region" aria-label="Music production tags">
 <div class="animate-marquee whitespace-nowrap flex items-center gap-8">
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Synthesizer
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Synthesizer
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ambient
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Ambient
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Drum Machine
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Drum Machine
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ableton
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Ableton
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Bitwig
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Bitwig
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> VST synths and FXs
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> VST synths and FXs
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Analog
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Analog
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Digital
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Digital
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Experimental
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Experimental
 </span>
 <!-- Duplicate for seamless loop -->
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Synthesizer
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Synthesizer
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ambient
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Ambient
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Drum Machine
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Drum Machine
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Ableton
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Ableton
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Bitwig
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Bitwig
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> VST synths and FXs
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> VST synths and FXs
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Analog
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Analog
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Digital
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Digital
 </span>
 <span class="text-neutral-600 text-sm font-medium uppercase tracking-widest flex items-center gap-3">
-<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Experimental
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full" aria-hidden="true"></span> Experimental
 </span>
 </div>
 </div>
 
 <!-- Featured Music / Embedded Player Section -->
-<section id="music" class="py-24 md:py-32 relative z-10">
+<section id="music" class="py-24 md:py-32 relative z-10" role="region" aria-label="Latest music releases">
 <div class="max-w-screen-2xl mx-auto px-6">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
 <!-- Left: Info -->
 <div class="lg:col-span-4">
 <div class="sticky top-32">
-<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500 block mb-4">Featured Release</span>
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-400 block mb-4">Featured Release</span>
 <h2 class="font-display font-500 text-4xl md:text-5xl tracking-tight leading-tight mb-6">
 Latest<br/>Tracks
 </h2>
-<p class="text-lg font-light leading-relaxed text-neutral-400 mb-8">
+<p class="text-lg font-light leading-relaxed text-neutral-300 mb-8">
 Stream the latest releases directly here. Each track is a journey through layered textures,
 evolving pads, and meticulous sound design.
 </p>
-<div class="flex items-center gap-3 text-neutral-500 text-sm">
-<span class="iconify" data-icon="lucide:headphones" data-width="16"></span>
+<div class="flex items-center gap-3 text-neutral-400 text-sm">
+<span class="iconify" data-icon="lucide:headphones" data-width="16" aria-hidden="true"></span>
 <span>Best experienced with headphones</span>
 </div>
 </div>
@@ -317,62 +364,57 @@ evolving pads, and meticulous sound design.
 <div class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-8 mb-8">
 <div class="flex items-center gap-3 mb-6">
 <span class="relative flex h-3 w-3">
-<span class="animate-ping-custom absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+<span class="animate-ping-custom absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" aria-hidden="true"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-400" aria-hidden="true"></span>
 </span>
 <span class="text-xs font-semibold tracking-widest uppercase text-green-400">Now Playing</span>
 </div>
-<!--
-Bandcamp Embedded Player
-Replace ALBUM_ID with the actual album ID from the Bandcamp embed code.
-To get it: Go to the album on Bandcamp → Share → Embed → copy the album=XXXXX value
--->
 <iframe
 class="bandcamp-embed"
 src="https://bandcamp.com/EmbeddedPlayer/album=2362694069/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
 seamless
 loading="lazy"
-title="Kosmogrids Bandcamp Player"
+title="Kosmogrids latest album player - Bandcamp"
 ></iframe>
 <div id="embed-fallback" class="hidden bg-neutral-800/50 rounded-xl p-8 text-center">
-<span class="iconify text-neutral-600 mb-4 mx-auto" data-icon="lucide:music" data-width="48"></span>
-<p class="text-neutral-400 text-sm mb-4">Bandcamp player loading…</p>
-<p class="text-neutral-600 text-xs mb-6">If the player doesn't load, visit the Bandcamp page directly.</p>
-<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-300">
-Open on Bandcamp
-<span class="iconify" data-icon="lucide:external-link" data-width="12"></span>
+<span class="iconify text-neutral-600 mb-4 mx-auto" data-icon="lucide:music" data-width="48" aria-hidden="true"></span>
+<p class="text-neutral-300 text-sm mb-4">Bandcamp player loading…</p>
+<p class="text-neutral-400 text-xs mb-6">If the player doesn't load, visit the Bandcamp page directly.</p>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-xs font-medium uppercase tracking-widest">
+Open on Bandcamp <span class="sr-only">(opens in new window)</span>
+<span class="iconify" data-icon="lucide:external-link" data-width="12" aria-hidden="true"></span>
 </a>
 </div>
 </div>
 
 <!-- Additional Track Cards -->
 <div class="space-y-0">
-<div class="track-card flex items-center justify-between py-6 px-4 border-b border-neutral-800 rounded-lg cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-4', '_blank')">
+<a href="https://kosmogrids.bandcamp.com/album/kosmogrids-4" target="_blank" rel="noopener noreferrer" class="track-card flex items-center justify-between py-6 px-4 border-b border-neutral-800 rounded-lg">
 <div class="flex items-center gap-4">
-<span class="text-neutral-600 text-sm font-mono w-6">01</span>
+<span class="text-neutral-600 text-sm font-mono w-6" aria-hidden="true">01</span>
 <div>
 <p class="track-title text-neutral-200 font-medium">Latest Release</p>
-<p class="text-neutral-500 text-sm">Kosmogrids 4 · 2026</p>
+<p class="text-neutral-400 text-sm">Kosmogrids 4 · 2026</p>
 </div>
 </div>
 <div class="flex items-center gap-4">
-<span class="text-neutral-600 text-xs font-mono hidden sm:block">Bandcamp</span>
-<span class="iconify text-neutral-600" data-icon="lucide:arrow-up-right" data-width="16"></span>
+<span class="text-neutral-600 text-xs font-mono hidden sm:block" aria-hidden="true">Bandcamp</span>
+<span class="iconify text-neutral-600" data-icon="lucide:arrow-up-right" data-width="16" aria-hidden="true"></span>
 </div>
-</div>
-<div class="track-card flex items-center justify-between py-6 px-4 border-b border-neutral-800 rounded-lg cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/music', '_blank')">
+</a>
+<a href="https://kosmogrids.bandcamp.com/music" target="_blank" rel="noopener noreferrer" class="track-card flex items-center justify-between py-6 px-4 border-b border-neutral-800 rounded-lg">
 <div class="flex items-center gap-4">
-<span class="text-neutral-600 text-sm font-mono w-6">02</span>
+<span class="text-neutral-600 text-sm font-mono w-6" aria-hidden="true">02</span>
 <div>
 <p class="track-title text-neutral-200 font-medium">More Releases</p>
-<p class="text-neutral-500 text-sm">Discography · All Albums</p>
+<p class="text-neutral-400 text-sm">Discography · All Albums</p>
 </div>
 </div>
 <div class="flex items-center gap-4">
-<span class="text-neutral-600 text-xs font-mono hidden sm:block">Bandcamp</span>
-<span class="iconify text-neutral-600" data-icon="lucide:arrow-up-right" data-width="16"></span>
+<span class="text-neutral-600 text-xs font-mono hidden sm:block" aria-hidden="true">Bandcamp</span>
+<span class="iconify text-neutral-600" data-icon="lucide:arrow-up-right" data-width="16" aria-hidden="true"></span>
 </div>
-</div>
+</a>
 </div>
 </div>
 </div>
@@ -380,13 +422,13 @@ Open on Bandcamp
 </section>
 
 <!-- Decorative Line -->
-<div class="decorative-line w-px h-24 mx-auto"></div>
+<div class="decorative-line w-px h-24 mx-auto" aria-hidden="true"></div>
 
 <!-- Albums Grid Section -->
-<section id="albums" class="py-24 md:py-32 relative z-10">
+<section id="albums" class="py-24 md:py-32 relative z-10" role="region" aria-label="Album discography">
 <div class="max-w-screen-2xl mx-auto px-6">
 <div class="text-center mb-16">
-<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500 block mb-4">Discography</span>
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-400 block mb-4">Discography</span>
 <h2 class="font-display font-500 text-4xl md:text-5xl tracking-tight leading-tight">
 Selected Works
 </h2>
@@ -394,71 +436,71 @@ Selected Works
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 <!-- Album Card 1 -->
-<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-i', '_blank')">
+<a href="https://kosmogrids.bandcamp.com/album/kosmogrids-i" target="_blank" rel="noopener noreferrer" class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden">
 <div class="aspect-square overflow-hidden">
-<img src="https://f4.bcbits.com/img/a2753941104_10.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+<img src="https://f4.bcbits.com/img/a2753941104_10.jpg" alt="Kosmogrids I album cover" class="album-art w-full h-full object-cover" loading="lazy" />
 </div>
 <div class="p-6">
 <h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids I</h3>
-<p class="text-neutral-500 text-sm mb-3">2023 · 15 Tracks</p>
+<p class="text-neutral-400 text-sm mb-3">2023 · 15 Tracks</p>
 <div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
-<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+<span class="iconify" data-icon="lucide:play-circle" data-width="14" aria-hidden="true"></span>
 Listen on Bandcamp
 </div>
 </div>
-</div>
+</a>
 
 <!-- Album Card 2 -->
-<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-ii', '_blank')">
+<a href="https://kosmogrids.bandcamp.com/album/kosmogrids-ii" target="_blank" rel="noopener noreferrer" class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden">
 <div class="aspect-square overflow-hidden">
-<img src="https://f4.bcbits.com/img/a1709755885_10.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+<img src="https://f4.bcbits.com/img/a1709755885_10.jpg" alt="Kosmogrids II album cover" class="album-art w-full h-full object-cover" loading="lazy" />
 </div>
 <div class="p-6">
 <h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids II</h3>
-<p class="text-neutral-500 text-sm mb-3">2023 · 8 Tracks</p>
+<p class="text-neutral-400 text-sm mb-3">2023 · 8 Tracks</p>
 <div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
-<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+<span class="iconify" data-icon="lucide:play-circle" data-width="14" aria-hidden="true"></span>
 Listen on Bandcamp
 </div>
 </div>
-</div>
+</a>
 
 <!-- Album Card 3 -->
-<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-phenomena', '_blank')">
+<a href="https://kosmogrids.bandcamp.com/album/kosmogrids-phenomena" target="_blank" rel="noopener noreferrer" class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden">
 <div class="aspect-square overflow-hidden">
-<img src="https://f4.bcbits.com/img/a0596212077_10.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+<img src="https://f4.bcbits.com/img/a0596212077_10.jpg" alt="Kosmogrids Phenomena album cover" class="album-art w-full h-full object-cover" loading="lazy" />
 </div>
 <div class="p-6">
 <h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids Phenomena</h3>
-<p class="text-neutral-500 text-sm mb-3">2024 · 10 Tracks</p>
+<p class="text-neutral-400 text-sm mb-3">2024 · 10 Tracks</p>
 <div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
-<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+<span class="iconify" data-icon="lucide:play-circle" data-width="14" aria-hidden="true"></span>
 Listen on Bandcamp
 </div>
 </div>
-</div>
+</a>
 
 <!-- Album Card 4 -->
-<div class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden cursor-pointer" onclick="window.open('https://kosmogrids.bandcamp.com/album/kosmogrids-4', '_blank')">
+<a href="https://kosmogrids.bandcamp.com/album/kosmogrids-4" target="_blank" rel="noopener noreferrer" class="album-card bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden">
 <div class="aspect-square overflow-hidden">
-<img src="https://f4.bcbits.com/img/a0479596647_2.jpg" alt="Album artwork" class="album-art w-full h-full object-cover" />
+<img src="https://f4.bcbits.com/img/a0479596647_2.jpg" alt="Kosmogrids 4 album cover" class="album-art w-full h-full object-cover" loading="lazy" />
 </div>
 <div class="p-6">
 <h3 class="font-display font-500 text-xl tracking-tight mb-1">Kosmogrids 4</h3>
-<p class="text-neutral-500 text-sm mb-3">2026 · 8 Tracks</p>
+<p class="text-neutral-400 text-sm mb-3">2026 · 8 Tracks</p>
 <div class="flex items-center gap-2 text-green-400 text-xs font-medium uppercase tracking-widest">
-<span class="iconify" data-icon="lucide:play-circle" data-width="14"></span>
+<span class="iconify" data-icon="lucide:play-circle" data-width="14" aria-hidden="true"></span>
 Listen on Bandcamp
 </div>
 </div>
-</div>
+</a>
 </div>
 
 <!-- Second Embedded Player for additional album -->
 <div class="mt-16 bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-8">
 <div class="flex items-center gap-3 mb-6">
-<span class="iconify text-neutral-500" data-icon="lucide:disc-3" data-width="20"></span>
-<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500">Full Discography Player</span>
+<span class="iconify text-neutral-400" data-icon="lucide:disc-3" data-width="20" aria-hidden="true"></span>
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">Full Discography Player</span>
 </div>
 <br />
 <iframe
@@ -466,7 +508,7 @@ class="bandcamp-embed"
 src="https://bandcamp.com/EmbeddedPlayer/album=41786448/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
 seamless
 loading="lazy"
-title="Kosmogrids Full Discography"
+title="Kosmogrids discography player 1 - Bandcamp"
 ></iframe>
 <br />
 <iframe
@@ -474,7 +516,7 @@ class="bandcamp-embed"
 src="https://bandcamp.com/EmbeddedPlayer/album=1830145958/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
 seamless
 loading="lazy"
-title="Kosmogrids Full Discography"
+title="Kosmogrids discography player 2 - Bandcamp"
 ></iframe>
 <br />
 <iframe
@@ -482,7 +524,7 @@ class="bandcamp-embed"
 src="https://bandcamp.com/EmbeddedPlayer/album=3720652680/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
 seamless
 loading="lazy"
-title="Kosmogrids Full Discography"
+title="Kosmogrids discography player 3 - Bandcamp"
 ></iframe>
 <br />
 <iframe
@@ -490,7 +532,7 @@ class="bandcamp-embed"
 src="https://bandcamp.com/EmbeddedPlayer/album=2362694069/size=large/bgcol=171717/linkcol=4ade80/tracklist=true/artwork=small/transparent=true/"
 seamless
 loading="lazy"
-title="Kosmogrids Full Discography"
+title="Kosmogrids discography player 4 - Bandcamp"
 ></iframe>
 <br />
 </div>
@@ -498,22 +540,22 @@ title="Kosmogrids Full Discography"
 </section>
 
 <!-- About Section -->
-<section id="about" class="py-24 md:py-32 relative z-10">
+<section id="about" class="py-24 md:py-32 relative z-10" role="region" aria-label="About Kosmogrids">
 <div class="max-w-screen-2xl mx-auto px-6">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 <div class="lg:col-span-5">
 <div class="aspect-[4/5] rounded-2xl overflow-hidden relative">
-<img src="https://picsum.photos/seed/synth-studio/600/750.jpg" alt="Studio" class="w-full h-full" />
-<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<img src="https://picsum.photos/seed/synth-studio/600/750.jpg" alt="Kosmogrids production studio setup" class="w-full h-full" loading="lazy" />
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" aria-hidden="true"></div>
 </div>
 </div>
 <div class="lg:col-span-7">
-<span class="text-xs font-semibold tracking-widest uppercase text-neutral-500 block mb-4">About</span>
+<span class="text-xs font-semibold tracking-widest uppercase text-neutral-400 block mb-4">About</span>
 <h2 class="font-display font-500 text-4xl md:text-5xl tracking-tight leading-tight mb-8">
 The Process<br/>
-<span class="text-neutral-500">Behind the Sound of Kosmogrids</span>
+<span class="text-neutral-400">Behind the Sound of Kosmogrids</span>
 </h2>
-<div class="space-y-6 text-lg font-light leading-relaxed text-neutral-400">
+<div class="space-y-6 text-lg font-light leading-relaxed text-neutral-300">
 <p>
 Kosmogrids is an electronic music project rooted in the exploration of sound synthesis.
 Every composition begins at the oscillator level — shaping waveforms, sculpting filters,
@@ -532,15 +574,15 @@ All music is available on Bandcamp in multiple formats, including lossless downl
 <div class="grid grid-cols-2 gap-6 mt-12">
 <div class="border-l border-neutral-800 pl-4">
 <h4 class="text-sm font-medium text-neutral-200 mb-2">Instruments</h4>
-<p class="text-sm text-neutral-500">Modular synth, analog polysynths, drum machines, keyboards, phones, tape loops</p>
+<p class="text-sm text-neutral-400">Modular synth, analog polysynths, drum machines, keyboards, phones, tape loops</p>
 </div>
 <div class="border-l border-neutral-800 pl-4">
 <h4 class="text-sm font-medium text-neutral-200 mb-2">Processing</h4>
-<p class="text-sm text-neutral-500">Reverbs, delays, granular synthesis, spectral processing</p>
+<p class="text-sm text-neutral-400">Reverbs, delays, granular synthesis, spectral processing</p>
 </div>
 <div class="border-l border-neutral-800 pl-4">
 <h4 class="text-sm font-medium text-neutral-200 mb-2">Streaming</h4>
-<p class="text-sm text-neutral-500">Bandcamp, Spotify, Soundcloud</p>
+<p class="text-sm text-neutral-400">Bandcamp, Spotify, Soundcloud</p>
 </div>
 </div>
 </div>
@@ -549,88 +591,111 @@ All music is available on Bandcamp in multiple formats, including lossless downl
 </section>
 
 <!-- CTA Section -->
-<section class="py-24 md:py-32 relative z-10">
+<section class="py-24 md:py-32 relative z-10" role="region" aria-label="Call to action">
 <div class="max-w-screen-2xl mx-auto px-6 text-center">
 <div class="max-w-3xl mx-auto">
 <h2 class="font-display font-500 text-6xl md:text-8xl tracking-tighter leading-none mb-8">
 Listen.
 </h2>
-<p class="text-lg font-light leading-relaxed text-neutral-400 mb-12 max-w-xl mx-auto">
+<p class="text-lg font-light leading-relaxed text-neutral-300 mb-12 max-w-xl mx-auto">
 Support independent electronic music. Every purchase on Bandcamp goes directly to the artist.
 </p>
 <div class="flex flex-wrap items-center justify-center gap-4">
-<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="btn-primary inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full text-sm font-medium uppercase tracking-widest">
-<span class="iconify" data-icon="lucide:shopping-bag" data-width="16"></span>
-Shop on Bandcamp
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full text-sm font-medium uppercase tracking-widest">
+<span class="iconify" data-icon="lucide:shopping-bag" data-width="16" aria-hidden="true"></span>
+Shop on Bandcamp <span class="sr-only">(opens in new window)</span>
 </a>
-<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-3 border border-neutral-700 text-neutral-300 px-10 py-5 rounded-full text-sm font-medium uppercase tracking-widest hover:border-neutral-500 transition-colors duration-300">
-Stream Free
-<span class="iconify" data-icon="lucide:arrow-up-right" data-width="16"></span>
+<a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 border border-neutral-700 text-neutral-300 px-10 py-5 rounded-full text-sm font-medium uppercase tracking-widest">
+Stream Free <span class="sr-only">(opens in new window)</span>
+<span class="iconify" data-icon="lucide:arrow-up-right" data-width="16" aria-hidden="true"></span>
 </a>
 </div>
 </div>
 </div>
 </section>
 
+</main>
+
 <!-- Footer -->
-<footer class="border-t border-neutral-800 py-16 relative z-10">
+<footer class="border-t border-neutral-800 py-16 relative z-10" role="contentinfo">
 <div class="max-w-screen-2xl mx-auto px-6">
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
 <!-- Brand -->
 <div class="lg:col-span-2">
 <a href="#" class="font-display font-500 text-white text-xl tracking-tight flex items-center gap-2 mb-4">
-<span class="inline-block w-2 h-2 bg-green-400 rounded-full"></span>
+<span class="inline-block w-2 h-2 bg-green-400 rounded-full" aria-hidden="true"></span>
 Kosmogrids
 </a>
-<p class="text-neutral-500 text-sm leading-relaxed max-w-sm">
+<p class="text-neutral-400 text-sm leading-relaxed max-w-sm">
 Electronic music from the intersection of analog warmth and digital precision.
 All releases available on Bandcamp.
 </p>
 </div>
 <!-- Links -->
 <div>
-<h4 class="text-xs font-semibold tracking-widest uppercase text-neutral-500 mb-4">Listen</h4>
+<h4 class="text-xs font-semibold tracking-widest uppercase text-neutral-400 mb-4">Listen</h4>
 <ul class="space-y-3">
-<li><a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">Bandcamp</a></li>
-<li><a href="https://open.spotify.com/album/2nL5bK8jQdTpCeQh8W83ua" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">Spotify</a></li>
-<li><a href="https://soundcloud.com/kosmogrids" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">SoundCloud</a></li>
+<li><a href="https://kosmogrids.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">Bandcamp</a></li>
+<li><a href="https://open.spotify.com/album/2nL5bK8jQdTpCeQh8W83ua" target="_blank" rel="noopener noreferrer" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">Spotify</a></li>
+<li><a href="https://soundcloud.com/kosmogrids" target="_blank" rel="noopener noreferrer" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300">SoundCloud</a></li>
 </ul>
 </div>
 <!-- Social -->
 <div>
-<h4 class="text-xs font-semibold tracking-widest uppercase text-neutral-500 mb-4">Connect</h4>
+<h4 class="text-xs font-semibold tracking-widest uppercase text-neutral-400 mb-4">Connect</h4>
 <ul class="space-y-3">
-<li><a href="mailto:kosmogrids@gmail.com" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300 flex items-center gap-2"><span class="iconify" data-icon="lucide:mail" data-width="14"></span> Email</a></li>
+<li><a href="mailto:kosmogrids@gmail.com" class="text-neutral-400 text-sm hover:text-white transition-colors duration-300 flex items-center gap-2"><span class="iconify" data-icon="lucide:mail" data-width="16" aria-hidden="true"></span>Email</a></li>
 </ul>
 </div>
 </div>
 <!-- Bottom bar -->
 <div class="mt-16 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-<p class="text-neutral-600 text-xs">&copy; 2026 Kosmogrids. All rights reserved.</p>
+<p class="text-neutral-500 text-xs">&copy; 2026 Kosmogrids. All rights reserved.</p>
 </div>
 </div>
 </footer>
 
 <script>
-// Mobile menu toggle
+// Mobile menu toggle with focus management
 const menuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 let menuOpen = false;
+
 menuBtn.addEventListener('click', () => {
 menuOpen = !menuOpen;
 mobileMenu.classList.toggle('hidden', !menuOpen);
+menuBtn.setAttribute('aria-expanded', menuOpen);
 menuBtn.innerHTML = menuOpen
-? '<span class="iconify" data-icon="lucide:x" data-width="24"></span>'
-: '<span class="iconify" data-icon="lucide:menu" data-width="24"></span>';
+? '<span class="iconify" data-icon="lucide:x" data-width="24" aria-hidden="true"></span>'
+: '<span class="iconify" data-icon="lucide:menu" data-width="24" aria-hidden="true"></span>';
+
+// Move focus to the menu when opening
+if (menuOpen && mobileMenu.firstElementChild) {
+const firstLink = mobileMenu.firstElementChild.querySelector('a');
+if (firstLink) firstLink.focus();
+}
 });
 
-// Close mobile menu on link click
+// Close mobile menu on link click and restore focus to menu button
 document.querySelectorAll('.mobile-link').forEach(link => {
 link.addEventListener('click', () => {
 menuOpen = false;
 mobileMenu.classList.add('hidden');
-menuBtn.innerHTML = '<span class="iconify" data-icon="lucide:menu" data-width="24"></span>';
+menuBtn.setAttribute('aria-expanded', 'false');
+menuBtn.innerHTML = '<span class="iconify" data-icon="lucide:menu" data-width="24" aria-hidden="true"></span>';
+menuBtn.focus();
 });
+});
+
+// Close menu when pressing Escape
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && menuOpen) {
+menuOpen = false;
+mobileMenu.classList.add('hidden');
+menuBtn.setAttribute('aria-expanded', 'false');
+menuBtn.innerHTML = '<span class="iconify" data-icon="lucide:menu" data-width="24" aria-hidden="true"></span>';
+menuBtn.focus();
+}
 });
 
 // Embed fallback detection
@@ -640,10 +705,9 @@ const fallback = iframe.parentElement.querySelector('#embed-fallback');
 if (fallback) fallback.classList.remove('hidden');
 iframe.style.display = 'none';
 });
-// Also show fallback if iframe is empty after load (cross-origin limitation workaround)
+
 iframe.addEventListener('load', () => {
 try {
-// If we can access contentDocument, check if it's empty
 const doc = iframe.contentDocument || iframe.contentWindow.document;
 if (!doc.body || doc.body.innerHTML.trim() === '') {
 const fallback = iframe.closest('.bg-neutral-900\\/50')?.querySelector('#embed-fallback');
@@ -655,19 +719,16 @@ iframe.style.display = 'none';
 }
 });
 
-// Timeout fallback: if the embed doesn't show anything meaningful after 8 seconds
 setTimeout(() => {
-// Check if the iframe src has album=0 (placeholder) and show a helpful message
 if (iframe.src.includes('album=0')) {
 const parent = iframe.closest('.bg-neutral-900\\/50') || iframe.parentElement;
-// Don't hide the iframe, but inject a notice above it
 const notice = document.createElement('div');
 notice.className = 'bg-amber-900/20 border border-amber-800/30 rounded-xl p-4 mb-4 flex items-start gap-3';
 notice.innerHTML = `
 <span class="iconify text-amber-500 mt-0.5 shrink-0" data-icon="lucide:info" data-width="16"></span>
 <div>
 <p class="text-amber-200 text-sm font-medium mb-1">Album ID needed</p>
-<p class="text-amber-200/60 text-xs leading-relaxed">To display the actual Bandcamp player, replace <code class="bg-neutral-800 px-1.5 py-0.5 rounded text-amber-300/80">album=0</code> in the iframe src with the real album ID. Get it from your Bandcamp album page: Share → Embed → copy the album number.</p>
+<p class="text-amber-200/60 text-xs leading-relaxed">To display the actual Bandcamp player, replace <code class="bg-neutral-800 px-1.5 py-0.5 rounded text-amber-300/80">album=0</code> in the iframe src</code>.</p>
 </div>
 `;
 iframe.parentElement.insertBefore(notice, iframe);
